@@ -64,9 +64,12 @@ DOWNLOAD_DELAY = 3
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'spiders.middlewares.SpidersDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'spiders.middlewares.SpidersDownloaderMiddleware': 543,
+'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+    'proxyspider.middlewares.RandomHttpProxyMiddleware': 400,
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -79,6 +82,11 @@ DOWNLOAD_DELAY = 3
 ITEM_PIPELINES = {
    'spiders.pipelines.SpidersPipeline': 300,
 }
+
+HTTP_PROXY_LIST = [
+     'http://52.179.231.206:80',
+     'http://95.0.194.241:9090',
+]
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
