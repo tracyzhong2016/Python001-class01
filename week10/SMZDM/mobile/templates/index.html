@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <script src="static/js/jquery.slim.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+    <title>豆瓣电影短评</title>
+
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">首页</a>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" name="q" type="search" placeholder="输入商品关键字">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+    </form>
+</nav>
+<div class="container">
+    <h3 class="mt-5 mb-3">舆情分析展示</h3>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">评论</th>
+            <th scope="col" class="text-nowrap">情感倾向</th>
+            <th scope="col">评论时间</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for short in shorts %}
+                <tr>
+                    <td>{{short.id}}</td>
+                    <td>{{short.comments}}</td>
+                    <td>{{short.sentiments}}</td>
+                    <td>{{short.comment_time}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '第一个 ECharts 实例'
+            },
+            tooltip: {},
+            legend: {
+                data:[[short.sentiment]]
+            },
+            xAxis: {
+                data: [[short.comments]]
+            },
+            yAxis: {},
+            series: [{
+                name: '正向评价',
+                type: 'bar',
+                stack: '情感分析',
+                data:data,
+            }]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+</body>
+</html>
